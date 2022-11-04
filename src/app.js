@@ -30,8 +30,16 @@ app.get('/ping', async (req,res)=>{
     res.json(result[0])
 })
 
-app.get('/create', async (req,res)=>{
-    const result  = await pool.query('INSERT INTO users(nombre) VALUES("Darwin Felipe")')
+app.get('/create/:nombre', async (req,res)=>{
+    let nombre = req.params.nombre|| "";
+    let consulta = 'SELECT "no se incluyo nombre" as RESULT;'
+    let result  = "No se Incluyo Usuario"
+    if (nombre.length>2 && nombre.length<35 ) {
+         consulta = `INSERT INTO users(nombre) VALUES("${nombre}")`;
+         result  = await pool.query(consulta)
+    }
+
+    
     res.json(result)
     console.log(result)
 })
