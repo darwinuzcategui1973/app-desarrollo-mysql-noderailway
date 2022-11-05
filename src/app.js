@@ -1,10 +1,28 @@
 import express from 'express';
+import cors from 'cors';
 import {pool} from "./db.js";
 import { PORT,www } from "./config.js";
 
+
 const app = express();
+//const cors = require('cors');
+
+const corsOptions = {
+	origin: '*',"origin": '*',
+    'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Headers": 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
+    "Access-Control-Allow-Methods": 'GET, POST, OPTIONS, PUT, DELETE',
+    'Allow': 'GET, POST, OPTIONS, PUT, DELETE',
+    "methods": "GET,PUT,POST",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204,
+    credentials: true
+};
+
+
 
 app.use(express.static(www));
+app.use(cors(corsOptions));
 console.log(`serving ${www}`);
 /*
 app.get('*', (req, res) => {
